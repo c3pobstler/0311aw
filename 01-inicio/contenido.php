@@ -18,8 +18,8 @@ session_start();
 <div id="contenedor">
 
 <?php
-	require("cabecera.php");
-	require("sidebarIzq.php");
+	require("include/common/cabecera.php");
+	require("include/common/sidebarIzq.php");
 ?>
 
 	<div id="contenido">
@@ -43,8 +43,8 @@ session_start();
 
 <?php
 
-	require("sidebarDer.php");
-	require("pie.php");
+	require("include/common/sidebarDer.php");
+	require("include/common/pie.php");
 
 ?>
 
