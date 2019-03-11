@@ -1,8 +1,6 @@
 <?php
 
-//Inicio del procesamiento
-session_start();
-
+require('includes/config.php');
 ?>
 
 <!DOCTYPE html>
@@ -17,10 +15,6 @@ session_start();
 
 <div id="contenedor">
 
-<?php
-	require("includes/comun/cabecera.php");
-	require("includes/comun/sidebarIzq.php");
-?>
 
 	<div id="contenido">
 		<h1>Registro de usuario</h1>
@@ -45,7 +39,6 @@ session_start();
 	</div>
 
 <?php
-	require("includes/comun/sidebarDer.php");
 	require("includes/comun/pie.php");
 ?>
 

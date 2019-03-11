@@ -1,7 +1,6 @@
 <?php
 
-//Inicio del procesamiento
-session_start();
+	require('includes/config.php');
 
 if (! isset($_POST['login']) ) {
 	header('Location: login.php');
@@ -23,7 +22,7 @@ if ( empty($password) ) {
 }
 
 if (count($erroresFormulario) === 0) {
-	$conn= new \mysqli('localhost', 'root', '', 'ejercicio3');
+	$conn= new \mysqli('127.0.0.1', 'user', '', 'ejercicio3');
 	if ( $conn->connect_errno ) {
 		echo "Error de conexión a la BD: (" . $conn->connect_errno . ") " . utf8_encode($conn->connect_error);
 		exit();
@@ -33,7 +32,7 @@ if (count($erroresFormulario) === 0) {
 		exit();
 	}
 	
-	$query=sprintf("SELECT * FROM Usuarios U WHERE U.nombreUsuario = '%s'", $conn->real_escape_string($nombreUsuario));
+	$query=sprintf("SELECT * FROM usuarios U WHERE U.nombreUsuario = '%s'", $conn->real_escape_string($nombreUsuario));
 	$rs = $conn->query($query);
 	if ($rs) {
 		if ( $rs->num_rows == 0 ) {

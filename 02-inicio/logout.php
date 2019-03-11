@@ -1,7 +1,5 @@
 <?php
-
-//Inicio del procesamiento
-session_start();
+require('includes/config.php');
 
 //Doble seguridad: unset + destroy
 unset($_SESSION["login"]);
@@ -24,17 +22,12 @@ session_destroy();
 
 <div id="contenedor">
 
-<?php
-	require("includes/comun/cabecera.php");
-	require("includes/comun/sidebarIzq.php");
-?>
 
 	<div id="contenido">
 		<h1>Hasta pronto!</h1>
 	</div>
 
 <?php
-	require("includes/comun/sidebarDer.php");
 	require("includes/comun/pie.php");
 ?>
 
