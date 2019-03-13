@@ -1,6 +1,5 @@
 <?php
 require_once __DIR__.'/includes/config.php';
-
 if (! isset($_POST['login']) ) {
 	header('Location: login.php');
 	exit();
@@ -21,17 +20,9 @@ if ( empty($password) ) {
 }
 
 if (count($erroresFormulario) === 0) {
-	$conn= new \mysqli('localhost', 'root', '', 'ejercicio3');
-	if ( $conn->connect_errno ) {
-		echo "Error de conexión a la BD: (" . $conn->connect_errno . ") " . utf8_encode($conn->connect_error);
-		exit();
-	}
-	if ( ! $conn->set_charset("utf8mb4")) {
-		echo "Error al configurar la codificación de la BD: (" . $conn->errno . ") " . utf8_encode($tconn->error);
-		exit();
-	}
 	
-	$query=sprintf("SELECT * FROM Usuarios U WHERE U.nombreUsuario = '%s'", $conn->real_escape_string($nombreUsuario));
+	$conn=Application::getInstance()->connectBD();
+	$query=sprintf("SELECT * FROM usuarios U WHERE U.nombreUsuario = '%s'", $conn->real_escape_string($nombreUsuario));
 	$rs = $conn->query($query);
 	if ($rs) {
 		if ( $rs->num_rows == 0 ) {
