@@ -1,22 +1,22 @@
 <?php
 
 /**
- * Clase base para la gestión de formularios.
- *
- * Además de la gestión básica de los formularios.
+* Base class for the management of forms.
+*
+* In addition to the basic management of the forms.
  */
 abstract class Form
 {
 
     /**
-     * @var string Cadena utilizada como valor del atributo "id" de la etiqueta &lt;form&gt; asociada al formulario y 
-     * como parámetro a comprobar para verificar que el usuario ha enviado el formulario.
+     * @var string String used as the value of the "id" attribute of the & lt; form & gt; associated to the form and
+      * as a parameter to check to verify that the user has sent the form.
      */
     private $formId;
 
     /**
-     * @var string URL asociada al atributo "action" de la etiqueta &lt;form&gt; del fomrulario y que procesará el 
-     * envío del formulario.
+     * @var string URL associated with the "action" attribute of the & lt; form & gt; of the form and that will process the
+      * Form submission.
      */
     private $action;
 
@@ -35,15 +35,15 @@ abstract class Form
      *   <tbody>
      *     <tr>
      *       <td>action</td>
-     *       <td><code>$_SERVER['PHP_SELF']</code></td>       
+     *       <td><code>$_SERVER['PHP_SELF']</code></td>
      *       <td>URL asociada al atributo "action" de la etiqueta &lt;form&gt; del fomrulario y que procesará
                  el envío del formulario.</td>
      *     </tr>
      *   </tbody>
      * </table>
 
-     * @param string $formId    Cadena utilizada como valor del atributo "id" de la etiqueta &lt;form&gt; asociada al
-     *                          formulario y como parámetro a comprobar para verificar que el usuario ha enviado el formulario.
+     * @param string $formId    String used as the value of the "id" attribute of the & lt; form & gt; associated with
+     * form and as a parameter to check to verify that the user has sent the form.
      *
      * @param array $opciones (ver más arriba).
      */
@@ -55,17 +55,17 @@ abstract class Form
         $opciones = array_merge($opcionesPorDefecto, $opciones);
 
         $this->action   = $opciones['action'];
-        
+
         if ( !$this->action ) {
             $this->action = htmlentities($_SERVER['PHP_SELF']);
         }
     }
-  
+
     /**
-     * Se encarga de orquestar todo el proceso de gestión de un formulario.
+     * It is responsible for orchestrating the entire process of managing a form.
      */
-    public function gestiona()
-    {   
+    public function gestiona() //= template method
+    {
         if ( ! $this->formularioEnviado($_POST) ) {
             echo $this->generaFormulario();
         } else {
@@ -76,15 +76,15 @@ abstract class Form
                 header('Location: '.$result);
                 exit();
             }
-        }  
+        }
     }
 
     /**
-     * Genera el HTML necesario para presentar los campos del formulario.
+     * Generate the necessary HTML to present the fields of the form.
      *
-     * @param string[] $datosIniciales Datos iniciales para los campos del formulario (normalmente <code>$_POST</code>).
-     * 
-     * @return string HTML asociado a los campos del formulario.
+     * @param string[] $datosIniciales Initial data for the form fields (normalmente <code>$_POST</code>).
+     *
+     * @return string HTML associated with the form fields.
      */
     protected function generaCamposFormulario($datosIniciales)
     {
@@ -96,33 +96,34 @@ abstract class Form
      *
      * @param string[] $datos Datos enviado por el usuario (normalmente <code>$_POST</code>).
      *
-     * @return string|string[] Devuelve el resultado del procesamiento del formulario, normalmente una URL a la que
-     * se desea que se redirija al usuario, o un array con los errores que ha habido durante el procesamiento del formulario.
+     * @return string|string[] Returns the result of the form processing, usually a URL to which
+     * you want to redirect the user, or an array with the errors that occurred during the processing of the form.
+     *
      */
     protected function procesaFormulario($datos)
     {
         return array();
     }
-  
+
     /**
-     * Función que verifica si el usuario ha enviado el formulario.
-     * Comprueba si existe el parámetro <code>$formId</code> en <code>$params</code>.
+     * Function that verifies if the user has sent the form.
+     * Check if the <code> $ formId </ code> parameter exists in <code> $ params </ code>.
      *
-     * @param string[] $params Array que contiene los datos recibidos en el envío formulario.
+     * @param string[] $params Array that contains the data received in the sending form.
      *
      * @return boolean Devuelve <code>true</code> si <code>$formId</code> existe como clave en <code>$params</code>
      */
     private function formularioEnviado(&$params)
     {
         return isset($params['action']) && $params['action'] == $this->formId;
-    } 
+    }
 
     /**
      * Función que genera el HTML necesario para el formulario.
      *
-     * @param string[] $errores (opcional) Array con los mensajes de error de validación y/o procesamiento del formulario.
+     * @param string[] $errores (opcional) Array with the error messages of validation and / or processing of the form.
      *
-     * @param string[] $datos (opcional) Array con los valores por defecto de los campos del formulario.
+     * @param string[] $datos (opcional) Array with default values of form fields.
      *
      * @return string HTML asociado al formulario.
      */
