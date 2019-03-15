@@ -30,34 +30,15 @@ if ( empty($password2) || strcmp($password, $password2) !== 0 ) {
 }
 
 if (count($erroresFormulario) === 0) {
-	$conn = $app->conexionBd();
-	
-	$query=sprintf("SELECT * FROM Usuarios U WHERE U.nombreUsuario = '%s'", $conn->real_escape_string($nombreUsuario));
-	$rs = $conn->query($query);
+	$rs=User::searchUser($nombreUsuario);
 	if ($rs) {
-		if ( $rs->num_rows > 0 ) {
-			$erroresFormulario[] = "El usuario ya existe";
-			$rs->free();
-		} else {
-			$query=sprintf("INSERT INTO Usuarios(nombreUsuario, nombre, password, rol) VALUES('%s', '%s', '%s', '%s')"
-					, $conn->real_escape_string($nombreUsuario)
-					, $conn->real_escape_string($nombre)
-					, password_hash($password, PASSWORD_DEFAULT)
-					, 'user');
-			if ( $conn->query($query) ) {
-				$_SESSION['login'] = true;
-				$_SESSION['nombre'] = $nombreUsuario;
-				header('Location: index.php');
-				exit();
-			} else {
-				echo "Error al insertar en la BD: (" . $conn->errno . ") " . utf8_encode($conn->error);
-				exit();
-			}
-		}		
-	} else {
-		echo "Error al consultar en la BD: (" . $conn->errno . ") " . utf8_encode($conn->error);
-		exit();
+		$erroresFormulario[] = "El usuario ya existe";
+		$rs->free();	
 	}
+	else if( ! User::create($nombreUsuario,$nombre,$password,'user')) {
+		echo "Error al insertar en la BD";
+		exit();
+	}		
 }
 
 ?>

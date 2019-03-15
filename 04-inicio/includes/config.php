@@ -1,14 +1,15 @@
 <?php
 
 require_once __DIR__.'/Aplicacion.php';
+require_once __DIR__.'/User.php';
 
 /**
  * Parámetros de conexión a la BD
  */
-define('BD_HOST', 'localhost');
+define('BD_HOST', '127.0.0.1');
 define('BD_NAME', 'ejercicio3');
-define('BD_USER', 'ejercicio3');
-define('BD_PASS', 'ejercicio3');
+define('BD_USER', 'user');
+define('BD_PASS', '');
 
 /**
  * Configuración del soporte de UTF-8, localización (idioma y país) y zona horaria
