@@ -38,7 +38,7 @@ if (count($erroresFormulario) === 0) {
 	    }
 	}
 }
-
+//copy paste this, starting from here into FormLogin?
 ?><!DOCTYPE html>
 <html>
 <head>

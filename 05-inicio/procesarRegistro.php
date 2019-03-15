@@ -32,7 +32,7 @@ if ( empty($password2) || strcmp($password, $password2) !== 0 ) {
 
 if (count($erroresFormulario) === 0) {
 	$usuario = Usuario::crea($nombreUsuario, $nombre, $password, 'user');
-	
+
 	if (! $usuario ) {
     	$erroresFormulario[] = "El usuario ya existe";
 	} else {
@@ -45,6 +45,7 @@ if (count($erroresFormulario) === 0) {
 }
 
 ?>
+//copy paste this, starting from here into RegistrationForm?
 
 <!DOCTYPE html>
 <html>
@@ -65,8 +66,8 @@ if (count($erroresFormulario) === 0) {
 
 	<div id="contenido">
 		<h1>Registro de usuario</h1>
-		
-		<form action="procesarRegistro.php" method="POST">	
+
+		<form action="procesarRegistro.php" method="POST">
 <?php
 if (count($erroresFormulario) > 0) {
 	echo '<ul class="errores">';
@@ -77,7 +78,7 @@ foreach($erroresFormulario as $error) {
 if (count($erroresFormulario) > 0) {
 	echo '</ul>';
 }
-?>		
+?>
 		</ul>
 		<fieldset>
 			<div class="grupo-control">
